@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.png';
 import axios from 'axios'
-import {Card, Image,Grid, Divider  } from 'semantic-ui-react'
+import {Card, Image, Grid,Icon } from 'semantic-ui-react'
 import './App.css';
 
 const URL = 'https://api.mercadolibre.com/sites/MCO/search?q='
@@ -33,7 +33,7 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>API MercadoLibre FrankCastrillon</h2>
+          <h2>API MercadoLibre @frankalexis</h2>
           <input type="text" placeholder="Search" onChange={this.textChanged} value={this.state.inputText}/>
         </div>
         <br/>
@@ -59,6 +59,7 @@ const Items = ({ items }) => {
                     title={item.title}
                     img = {item.thumbnail}
                     price ={item.price}
+                    amount = {item.sold_quantity}
                 />
             )}
         </Card.Content>
@@ -67,17 +68,24 @@ const Items = ({ items }) => {
   )
 }
 
-const Item = ({ title, img, price }) => (
+const Item = ({ title, img, price, amount }) => (
   <div>
     <Image floated='right' size='mini' src={img}/>
     <Card.Header>
       <strong class="strong">
           ${price.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}
       </strong>
+      
     </Card.Header>
     <Card.Description>
       {title}
     </Card.Description>
+    <Card.Content extra>
+      <a>
+        <Icon name='shop' />
+        Cantidad vendida:{amount}
+      </a>
+    </Card.Content>
     </div>
 );
 
